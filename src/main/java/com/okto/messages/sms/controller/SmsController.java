@@ -32,7 +32,7 @@ public class SmsController {
         smsManager = new SmsManager(); // Initializing our SMS manager API controller.
     }
 
-    @PostMapping(path="/history", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path="/history", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Page<SmsModel>> getMessageHistory(@Valid @RequestBody SmsHistoryDto smsHistoryDTO) {
 
         // Converting date to a LocalDateTime format.
