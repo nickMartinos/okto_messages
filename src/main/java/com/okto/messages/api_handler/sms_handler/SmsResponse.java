@@ -11,19 +11,19 @@ package com.okto.messages.api_handler.sms_handler;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.okto.messages.api_handler.interfaces.CommunicationResponseInterface;
 
-public class SMSResponse implements CommunicationResponseInterface {
+public class SmsResponse implements CommunicationResponseInterface {
     @JsonProperty("responseMessage")
     String responseMessage;
 
     @JsonProperty("responseSuccess")
     boolean responseSuccess;
 
-    public SMSResponse(String responseMessage, boolean responseSuccess) {
+    public SmsResponse(String responseMessage, boolean responseSuccess) {
         this.responseMessage = responseMessage;
         this.responseSuccess = responseSuccess;
     }
 
-    public SMSResponse() { }
+    public SmsResponse() { }
 
     public String getResponseMessage() {
         return responseMessage;

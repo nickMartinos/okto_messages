@@ -1,11 +1,11 @@
 package com.okto.messages.api_handler.email_handler;
 
-public class EmailAPIDTO {
+public class EmailApiDto {
     private final String destination;
     private final String subject;
     private final String body;
 
-    public EmailAPIDTO(String destination, String subject, String body) {
+    public EmailApiDto(String destination, String subject, String body) {
         this.destination = destination;
         this.subject = subject;
         this.body = body;

@@ -3,7 +3,7 @@ package com.okto.messages.email.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public class EmailPostDTO {
+public class EmailPostDto {
     @NotNull
     @NotEmpty
     private final String recipient; // Mandatory value. Cannot be null or empty.
@@ -16,7 +16,7 @@ public class EmailPostDTO {
     @NotEmpty
     private final String message;
 
-    public EmailPostDTO(String recipient, String subject, String message) {
+    public EmailPostDto(String recipient, String subject, String message) {
         this.recipient = recipient;
         this.subject = subject;
         this.message = message;

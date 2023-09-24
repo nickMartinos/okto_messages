@@ -3,7 +3,7 @@ package com.okto.mock_api.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public class EmailReceivedDTO {
+public class EmailReceivedDto {
     @NotNull
     @NotEmpty
     private final String destination;
@@ -16,7 +16,7 @@ public class EmailReceivedDTO {
     @NotEmpty
     private final String body;
 
-    public EmailReceivedDTO (String destination, String subject, String body) {
+    public EmailReceivedDto(String destination, String subject, String body) {
         this.destination = destination;
         this.subject = subject;
         this.body = body;

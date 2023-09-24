@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class SMSPostDTO {
+public class SmsPostDto {
     @NotEmpty
     @NotNull
     @Size(min = 1, message = "Phone number cannot be empty.")
@@ -15,7 +15,7 @@ public class SMSPostDTO {
     @Size(min = 1, message = "Message cannot be empty.")
     private final String message; // Same as phone number.
 
-    public SMSPostDTO(String phoneNumber, String message) {
+    public SmsPostDto(String phoneNumber, String message) {
         this.phoneNumber = phoneNumber;
         this.message = message;
     }

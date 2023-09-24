@@ -42,7 +42,7 @@ public class EmailManager {
                 .post()
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(new EmailAPIDTO(emailRecipient, emailSubject, emailMessage)))
+                .body(BodyInserters.fromValue(new EmailApiDto(emailRecipient, emailSubject, emailMessage)))
                 .retrieve()
                 .bodyToMono(EmailResponse.class)
                 .block();

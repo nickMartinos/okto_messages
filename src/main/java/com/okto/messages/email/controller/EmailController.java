@@ -2,8 +2,8 @@ package com.okto.messages.email.controller;
 
 import com.okto.messages.api_handler.email_handler.EmailManager;
 import com.okto.messages.api_handler.email_handler.EmailResponse;
-import com.okto.messages.email.dto.EmailHistoryDTO;
-import com.okto.messages.email.dto.EmailPostDTO;
+import com.okto.messages.email.dto.EmailHistoryDto;
+import com.okto.messages.email.dto.EmailPostDto;
 import com.okto.messages.email.model.EmailModel;
 import com.okto.messages.email.repository.EmailRepository;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class EmailController {
     }
 
     @GetMapping(path="/history")
-    public ResponseEntity<Page<EmailModel>> getMessageHistory(@Valid @RequestBody EmailHistoryDTO emailHistoryDTO) {
+    public ResponseEntity<Page<EmailModel>> getMessageHistory(@Valid @RequestBody EmailHistoryDto emailHistoryDTO) {
 
         // Converting date to a LocalDateTime format.
         LocalDateTime formattedStartDate = LocalDate.parse(emailHistoryDTO.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
@@ -56,7 +56,7 @@ public class EmailController {
     }
 
     @PostMapping(path="/send")
-    public ResponseEntity<EmailModel> sendSMS(@Valid @RequestBody EmailPostDTO emailPostDTO) {
+    public ResponseEntity<EmailModel> sendSMS(@Valid @RequestBody EmailPostDto emailPostDTO) {
         EmailResponse emailResponse = emailManager.sendEmail(emailPostDTO.getRecipient(), emailPostDTO.getSubject(), emailPostDTO.getMessage());
 
         if (emailResponse.getResponseSuccess()) {

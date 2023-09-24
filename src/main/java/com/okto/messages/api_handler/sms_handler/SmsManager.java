@@ -8,34 +8,37 @@
 
 package com.okto.messages.api_handler.sms_handler;
 
-import com.okto.messages.api_handler.email_handler.EmailResponse;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-public class SMSManager {
+public class SmsManager {
 
-    public SMSManager() {
+    public SmsManager() {
         // Pass in API key -- to then be validated and sent along with sendSMS.
     }
 
-    public SMSResponse sendSMS(String phoneNumber, String message) {
+    public SmsResponse sendSMS(String phoneNumber, String message) {
         // POST phoneNumber and message to API endpoint.
         // Verify APIKey integrity before any other check.
 
         if (phoneNumber.length() <= 3) {
             // Phone number provided too short.
-            return new SMSResponse("Phone number provided is too short.", false);
+            return new SmsResponse("Phone number provided is too short.", false);
         }
 
         // Now sending the request to the API endpoint. All variables should be encapsulated and secured (characters escaped) to ensure safety,
         // however, safety is not our priority in this case.
 
-        SMSResponse apiResponse = WebClient
+        SmsResponse apiResponse = WebClient
                 .builder()
-                .baseUrl("http://localhost:8081/api/sms/smsServiceProvider?phoneNumber=" + phoneNumber + "&message=" + message)
+                .baseUrl("http://localhost:8081/api/sms/smsServiceProvider")
                 .build()
                 .post()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(new SmsApiDto(phoneNumber, message)))
                 .retrieve()
-                .bodyToMono(SMSResponse.class)
+                .bodyToMono(SmsResponse.class)
                 .block();
 
         // Ensuring the response from the API endpoint is valid & successful.

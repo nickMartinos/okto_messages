@@ -10,7 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 @Entity
-public class SMSModel {
+public class SmsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id; // Auto incrementing ID
