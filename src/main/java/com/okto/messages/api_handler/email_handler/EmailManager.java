@@ -8,6 +8,8 @@
 
 package com.okto.messages.api_handler.email_handler;
 
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class EmailManager {
@@ -15,18 +17,18 @@ public class EmailManager {
         // Pass in API key -- to then be validated and sent along with sendEmail.
     }
 
-    public EmailResponse sendEmail(String emailReceipt, String emailSubject, String emailMessage) {
+    public EmailResponse sendEmail(String emailRecipient, String emailSubject, String emailMessage) {
         // POST emailReceipt and emailMessage to API endpoint.
         // Verify APIKey integrity before any other check.
 
         // Quick validation of input before sending to API.
 
-        if (emailReceipt.length() <= 3) {
+        if (emailRecipient.length() <= 3) {
             // Email is too short to be a legitimate email address.
             return new EmailResponse("Provided email address is too short.", false);
         }
 
-        if (!emailReceipt.contains("@")) { // Simple validation - would've been better to use regex.
+        if (!emailRecipient.contains("@")) { // Simple validation - would've been better to use regex.
             return new EmailResponse("Provided email address is not valid.", false);
         }
 
@@ -35,9 +37,12 @@ public class EmailManager {
 
         EmailResponse apiResponse = WebClient
                 .builder()
-                .baseUrl("http://localhost:8081/api/emails/emailServiceProvider?destination=" + emailReceipt + "&subject=" + emailSubject + "&body=" + emailMessage)
+                .baseUrl("http://localhost:8081/api/emails/emailServiceProvider")
                 .build()
                 .post()
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(new EmailAPIDTO(emailRecipient, emailSubject, emailMessage)))
                 .retrieve()
                 .bodyToMono(EmailResponse.class)
                 .block();
@@ -45,7 +50,7 @@ public class EmailManager {
         // Ensuring the response from the API endpoint is valid & successful.
 
         if (apiResponse != null && apiResponse.getResponseSuccess()) {
-            System.out.format("Email sent to address %s\nSubject: %s\nBody: %s", emailSubject, emailReceipt, emailMessage);
+            System.out.format("Email sent to address %s\nSubject: %s\nBody: %s", emailSubject, emailRecipient, emailMessage);
         }
 
         // Return the response.
